@@ -14,7 +14,8 @@ export function PipelineOverlay({ duration = 3000, onDone, label }: { duration?:
     let raf = 0;
     const start = performance.now();
     const tick = (t: number) => {
-      const p = Math.min(1, (t - start) / duration);
+      // rAF timestamps mark the frame start and can precede `start`, so clamp at 0.
+      const p = Math.min(1, Math.max(0, (t - start) / duration));
       setProgress(p);
       if (p < 1) raf = requestAnimationFrame(tick);
       else done.current();
@@ -23,7 +24,7 @@ export function PipelineOverlay({ duration = 3000, onDone, label }: { duration?:
     return () => cancelAnimationFrame(raf);
   }, [duration]);
 
-  const step = Math.min(PIPELINE_STEPS.length - 1, Math.floor(progress * PIPELINE_STEPS.length));
+  const step = Math.max(0, Math.min(PIPELINE_STEPS.length - 1, Math.floor(progress * PIPELINE_STEPS.length)));
 
   return (
     <motion.div

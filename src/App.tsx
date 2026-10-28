@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import { RouteFallback } from "./components/RouteFallback";
 
 const Landing = lazy(() => import("./pages/marketing/Landing"));
@@ -22,6 +23,7 @@ export function App() {
   return (
     <>
       <ScrollToTop />
+      <ErrorBoundary>
       <Suspense fallback={<RouteFallback />}>
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -36,6 +38,7 @@ export function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+      </ErrorBoundary>
     </>
   );
 }

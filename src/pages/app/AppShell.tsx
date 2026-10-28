@@ -3,6 +3,7 @@ import { useLocation, useOutlet } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { RouteFallback } from "@/components/RouteFallback";
 import { useFocusTrap, useScrollLock } from "@/hooks/useFocusTrap";
 import { cn } from "@/lib/utils";
@@ -61,6 +62,7 @@ export default function AppShell() {
       <div className={cn("flex min-h-screen flex-col transition-[padding] duration-200 ease-out", collapsed ? "lg:pl-[57px]" : "lg:pl-[240px]")}>
         <TopBar onOpenNav={() => setMobileOpen(true)} />
         <main id="app-main" className="min-w-0 flex-1">
+          <ErrorBoundary key={location.pathname}>
           <Suspense fallback={<RouteFallback />}>
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -75,6 +77,7 @@ export default function AppShell() {
               </motion.div>
             </AnimatePresence>
           </Suspense>
+          </ErrorBoundary>
         </main>
       </div>
     </div>
