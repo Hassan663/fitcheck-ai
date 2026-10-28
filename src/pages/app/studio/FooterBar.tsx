@@ -15,7 +15,7 @@ interface Props {
 
 export function FooterBar({ garment, saved, disabled, onSave, onShare, onBag }: Props) {
   return (
-    <div className="sticky bottom-0 z-20 -mx-4 mt-4 border-t border-line bg-bg/85 px-4 py-3 backdrop-blur-xl sm:-mx-6 sm:px-6">
+    <div className="sticky bottom-0 z-20 -mx-4 mt-4 border-t border-line bg-bg/85 px-4 py-3 backdrop-blur-xl sm:-mx-6 sm:px-6 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
       <div className="flex items-center gap-3">
         <div className="flex min-w-0 flex-1 items-center gap-3">
           <span className="hidden h-11 w-11 shrink-0 rounded-sm border border-line bg-fg/[0.03] p-1 sm:block">

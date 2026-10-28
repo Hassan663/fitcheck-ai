@@ -33,7 +33,7 @@ export function Nav() {
   }, [open]);
 
   return (
-    <header className={cn("sticky top-0 z-40 transition-colors duration-200", scrolled || open ? "glass" : "border-b border-transparent")}>
+    <header className={cn("sticky top-0 z-40 transition-colors duration-200", open ? "border-b border-line bg-bg" : scrolled ? "glass" : "border-b border-transparent")}>
       <nav className="container flex h-16 items-center justify-between gap-4" aria-label="Main">
         <Link to="/" aria-label="FitCheck AI home" className="rounded-sm">
           <Logo />

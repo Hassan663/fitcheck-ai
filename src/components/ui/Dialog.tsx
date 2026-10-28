@@ -85,7 +85,7 @@ function Panel({
         </div>
         {children && <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-5">{children}</div>}
         {footer && (
-          <div className="flex flex-col-reverse gap-2 border-t border-line bg-fg/[0.02] px-5 py-4 sm:flex-row sm:justify-end">{footer}</div>
+          <div className="flex flex-col-reverse gap-2 border-t border-line bg-fg/[0.02] px-5 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:flex-row sm:justify-end">{footer}</div>
         )}
       </motion.div>
     </div>

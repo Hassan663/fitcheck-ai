@@ -29,7 +29,7 @@ function Tile({ active, onClick, children, label }: { active: boolean; onClick: 
       aria-pressed={active}
       aria-label={label}
       className={cn(
-        "group flex w-[132px] shrink-0 items-center gap-3 rounded-md border p-2 text-left transition-[border-color,background-color,transform] duration-150 hover:-translate-y-px xl:w-full",
+        "group flex w-[164px] shrink-0 items-center gap-3 rounded-md border p-2 text-left transition-[border-color,background-color,transform] duration-150 hover:-translate-y-px xl:w-full",
         active ? "border-accent/60 bg-accent/[0.08] ring-1 ring-accent/30" : "border-line bg-surface hover:border-line-strong",
       )}
     >
@@ -67,7 +67,7 @@ export function SubjectPicker({ subject, photo, photoReady, onSelectModel, onSel
             </Tile>
           ))}
           {!photoReady ? (
-            <div className="flex w-[132px] shrink-0 items-center gap-3 rounded-md border border-line p-2 xl:w-full">
+            <div className="flex w-[164px] shrink-0 items-center gap-3 rounded-md border border-line p-2 xl:w-full">
               <Skeleton className="h-12 w-9" />
               <div className="flex-1 space-y-1.5">
                 <Skeleton className="h-3 w-14" />
