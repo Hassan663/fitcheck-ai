@@ -2,6 +2,9 @@
 
 An AI virtual try-on platform for fashion brands. Shoppers see garments on themselves, from a photo or their camera, before they buy.
 
+- **Live demo:** https://fitcheck-beryl-two.vercel.app ([open the Studio](https://fitcheck-beryl-two.vercel.app/app/studio))
+- **Source:** https://github.com/Hassan663/fitcheck-ai
+
 This repository is a **fully client-side product demo**. There is no backend, no external API and no paid service. Everything runs in the browser, and shopper photos never leave the device.
 
 ## Setup
