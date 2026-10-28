@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitCheck AI · Virtual Try-On Demo</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%237c5cff'/><stop offset='1' stop-color='%23ff5c8a'/></linearGradient></defs><rect width='100' height='100' rx='24' fill='url(%23g)'/><path d='M30 28l12 8 8-8 8 8 12-8 8 14-10 6v30H32V42l-10-6z' fill='white'/></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <a class="brand" href="#home" data-nav="home">
+      <span class="brand-mark">
+        <svg viewBox="0 0 100 100"><path d="M30 28l12 8 8-8 8 8 12-8 8 14-10 6v30H32V42l-10-6z" fill="white"/></svg>
+      </span>
+      <span>FitCheck<span class="brand-ai">AI</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#home" data-nav="home" class="active">Home</a>
+      <a href="#studio" data-nav="studio">Try-On Studio</a>
+      <a href="#looks" data-nav="looks">My Looks <span class="pill" id="looksCount">0</span></a>
+      <a href="#how" data-nav="how">How it works</a>
+    </nav>
+    <div class="nav-actions">
+      <span class="demo-pill">● Demo mode</span>
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+        <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="btn btn-primary btn-sm" data-nav="studio">Start try-on</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HOME ============ -->
+    <section class="page active" id="page-home">
+      <div class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">AI-powered virtual fitting room</span>
+          <h1>See it on <em>you</em><br/>before you buy it.</h1>
+          <p class="lede">Shoppers upload one photo and try the whole rack in seconds. No changing rooms, no guesswork, fewer returns. Built for Pakistani fashion brands.</p>
+          <div class="hero-cta">
+            <button class="btn btn-primary btn-lg" data-nav="studio">Open Try-On Studio
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <button class="btn btn-ghost btn-lg" data-nav="how">How it works</button>
+          </div>
+          <div class="hero-stats">
+            <div><strong>7M+</strong><span>try-on sessions at Zara in 4 months</span></div>
+            <div><strong>-25%</strong><span>typical reduction in returns</span></div>
+            <div><strong>&lt;10s</strong><span>per generated look</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card hero-card-main" id="heroModel"></div>
+          <div class="hero-card hero-card-float hero-float-1">
+            <div class="mini-garment" id="heroG1"></div>
+            <div><b>Sky Gingham</b><span>Tap to try</span></div>
+          </div>
+          <div class="hero-card hero-card-float hero-float-2">
+            <div class="mini-garment" id="heroG2"></div>
+            <div><b>Ivory Kurta</b><span>Tap to try</span></div>
+          </div>
+          <div class="hero-card hero-card-float hero-float-3">
+            <span class="dot"></span> Fit score <b>94%</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="logo-strip">
+        <span>Designed for</span>
+        <div><i>Outfitters</i><i>Sapphire</i><i>Khaadi</i><i>J.</i><i>Breakout</i><i>Bonanza</i></div>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="feature-icon">📸</div>
+          <h3>One photo, every shirt</h3>
+          <p>A single front-facing photo is enough. The customer swaps garments instantly without re-uploading.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">🧵</div>
+          <h3>Realistic fabric & fit</h3>
+          <p>Folds, drape, sleeve length and lighting are matched to the body so the result looks like a real photo.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">🛍️</div>
+          <h3>Try, compare, buy</h3>
+          <p>Side-by-side comparisons, saved looks and one-tap add to cart keep shoppers inside the brand's funnel.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">🔒</div>
+          <h3>Privacy by default</h3>
+          <p>Photos are processed and deleted after the session unless the shopper chooses to save a look.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ STUDIO ============ -->
+    <section class="page" id="page-studio">
+      <div class="studio-head">
+        <div>
+          <h2>Try-On Studio</h2>
+          <p>Pick a model or upload a photo, then tap any garment to see it on the body.</p>
+        </div>
+        <ol class="stepper">
+          <li class="done" data-step="1"><span>1</span>Model</li>
+          <li class="current" data-step="2"><span>2</span>Garment</li>
+          <li data-step="3"><span>3</span>Result</li>
+        </ol>
+      </div>
+
+      <div class="studio">
+        <!-- LEFT: model picker -->
+        <aside class="panel panel-models">
+          <div class="panel-title">
+            <h4>Who's trying on?</h4>
+            <span class="muted">Sample models</span>
+          </div>
+          <div class="model-list" id="modelList"></div>
+          <div class="upload-box" id="uploadBox">
+            <input type="file" id="photoInput" accept="image/*" hidden />
+            <div class="upload-inner">
+              <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0l-4 4m4-4l4 4M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+              <b>Upload your photo</b>
+              <span>Front-facing, good light. Stays on this device.</span>
+            </div>
+          </div>
+          <div class="tips">
+            <b>Tips for best results</b>
+            <ul>
+              <li>Stand straight, arms slightly away from body</li>
+              <li>Plain background helps segmentation</li>
+              <li>Wear a fitted top for accurate drape</li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- CENTER: canvas -->
+        <div class="panel panel-canvas">
+          <div class="canvas-toolbar">
+            <div class="seg" id="viewSeg">
+              <button class="active" data-view="result">Result</button>
+              <button data-view="compare">Before / After</button>
+              <button data-view="grid">Compare looks</button>
+            </div>
+            <div class="toolbar-right">
+              <button class="icon-btn" id="btnUndo" title="Previous garment">
+                <svg viewBox="0 0 24 24"><path d="M9 14l-4-4 4-4M5 10h9a6 6 0 010 12h-1"/></svg>
+              </button>
+              <button class="icon-btn" id="btnShuffle" title="Surprise me">
+                <svg viewBox="0 0 24 24"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="canvas" id="canvas">
+            <div class="canvas-stage" id="stage">
+              <!-- result layers injected here -->
+            </div>
+
+            <!-- photo mode overlay controls -->
+            <div class="fit-controls" id="fitControls" hidden>
+              <span class="muted">Drag garment · Scroll to resize</span>
+              <input type="range" id="fitScale" min="0.4" max="2.2" step="0.01" value="1" />
+              <button class="btn btn-ghost btn-sm" id="btnAutoFit">✨ Auto-fit</button>
+            </div>
+
+            <!-- processing overlay -->
+            <div class="processing" id="processing" hidden>
+              <div class="scanline"></div>
+              <div class="proc-card">
+                <div class="proc-head">
+                  <span class="spinner"></span>
+                  <div><b>Generating your look</b><span id="procSub">Running FitCheck render pipeline</span></div>
+                  <span class="proc-time" id="procTime">0.0s</span>
+                </div>
+                <ol class="proc-steps" id="procSteps"></ol>
+                <div class="progress"><i id="procBar"></i></div>
+              </div>
+            </div>
+
+            <div class="canvas-empty" id="canvasEmpty">
+              <div class="empty-illus">👕</div>
+              <b>Select a garment to begin</b>
+              <span>Tap any item on the right. Results render in seconds.</span>
+            </div>
+          </div>
+
+          <div class="canvas-footer" id="canvasFooter" hidden>
+            <div class="look-meta">
+              <div class="mini-garment" id="footGarment"></div>
+              <div>
+                <b id="footName">—</b>
+                <span id="footBrand">—</span>
+              </div>
+              <div class="price" id="footPrice">—</div>
+            </div>
+            <div class="look-actions">
+              <button class="btn btn-ghost btn-sm" id="btnSave">♡ Save look</button>
+              <button class="btn btn-ghost btn-sm" id="btnShare">Share</button>
+              <button class="btn btn-primary btn-sm" id="btnCart">Add to bag</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: catalog + insights -->
+        <aside class="panel panel-catalog">
+          <div class="panel-title">
+            <h4>Catalog</h4>
+            <span class="muted" id="catCount"></span>
+          </div>
+          <div class="chips" id="catChips"></div>
+          <div class="garment-grid" id="garmentGrid"></div>
+
+          <div class="insights" id="insights" hidden>
+            <div class="panel-title"><h4>AI insights</h4><span class="muted">for this look</span></div>
+            <div class="insight-rows">
+              <div class="insight"><span>Fit score</span><div class="bar"><i id="insFit"></i></div><b id="insFitV">—</b></div>
+              <div class="insight"><span>Color harmony</span><div class="bar"><i id="insColor"></i></div><b id="insColorV">—</b></div>
+              <div class="insight"><span>Occasion match</span><div class="bar"><i id="insOcc"></i></div><b id="insOccV">—</b></div>
+            </div>
+            <div class="size-rec">
+              <span>Recommended size</span>
+              <div class="sizes" id="sizeRec"></div>
+            </div>
+            <div class="pairs">
+              <span>Pairs well with</span>
+              <div id="pairsWith"></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ LOOKS ============ -->
+    <section class="page" id="page-looks">
+      <div class="studio-head">
+        <div>
+          <h2>My Looks</h2>
+          <p>Saved try-ons. Shoppers can revisit, compare and buy later.</p>
+        </div>
+        <button class="btn btn-ghost btn-sm" id="btnClearLooks">Clear all</button>
+      </div>
+      <div class="looks-grid" id="looksGrid"></div>
+    </section>
+
+    <!-- ============ HOW ============ -->
+    <section class="page" id="page-how">
+      <div class="how-hero">
+        <span class="eyebrow">Under the hood</span>
+        <h2>From a selfie to a finished look in under 10 seconds</h2>
+        <p class="lede">This demo simulates the pipeline. In production each step is a real model call, and the whole chain runs on GPU infrastructure behind our API.</p>
+      </div>
+      <div class="how-steps">
+        <div class="how-step"><span>01</span><h4>Capture</h4><p>Customer uploads a photo or snaps one in-store at a kiosk. Face and body are detected automatically.</p></div>
+        <div class="how-step"><span>02</span><h4>Understand the body</h4><p>Pose estimation and human parsing map shoulders, torso and arms, and mask out the garment they're wearing.</p></div>
+        <div class="how-step"><span>03</span><h4>Dress the body</h4><p>A diffusion try-on model warps the catalog garment onto the body, preserving prints, folds and fabric texture.</p></div>
+        <div class="how-step"><span>04</span><h4>Deliver</h4><p>Result is cached per photo + garment, so swapping shirts is instant. Looks can be saved, shared and bought.</p></div>
+      </div>
+      <div class="arch">
+        <div class="arch-col"><b>Frontend</b><span>Web portal · In-store kiosk · Brand app SDK</span></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-col"><b>FitCheck API</b><span>Auth · Job queue · Caching · Catalog</span></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-col"><b>Try-on engine</b><span>Pose + parsing + diffusion render on GPU</span></div>
+      </div>
+      <div class="how-cta">
+        <button class="btn btn-primary btn-lg" data-nav="studio">Try the demo</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© 2026 FitCheck AI · Concept demo. No images leave this device.</span>
+    <span class="muted">Press <kbd>S</kbd> studio · <kbd>H</kbd> home · <kbd>R</kbd> random look</span>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Share modal -->
+  <div class="modal" id="shareModal" hidden>
+    <div class="modal-card">
+      <button class="modal-close" id="shareClose">✕</button>
+      <h3>Share this look</h3>
+      <p class="muted">Shoppers can send a look to friends for a second opinion before buying.</p>
+      <div class="share-preview" id="sharePreview"></div>
+      <div class="share-link">
+        <input readonly id="shareUrl" value="https://fitcheck.pk/l/8f3k2a" />
+        <button class="btn btn-primary btn-sm" id="shareCopy">Copy</button>
+      </div>
+      <div class="share-apps"><span>WhatsApp</span><span>Instagram</span><span>Messages</span></div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="render.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Metric-matched fallback so swapping in Inter causes no layout shift. */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 107.4%;
+  ascent-override: 90.2%;
+  descent-override: 22.48%;
+  line-gap-override: 0%;
+}
+
+@layer base {
+  :root {
+    --bg: 250 250 251;
+    --surface: 255 255 255;
+    --elevated: 255 255 255;
+    --fg: 10 10 11;
+    --muted: 82 82 91;
+    --subtle: 113 113 122;
+    --accent: 124 92 255;
+    --accent-fg: 255 255 255;
+    --highlight: 255 92 138;
+    --success: 22 163 74;
+    --warning: 217 119 6;
+    --danger: 220 38 38;
+    --line: rgb(10 10 11 / 0.08);
+    --line-strong: rgb(10 10 11 / 0.14);
+    --stage-top: #eef0f5;
+    --stage-bottom: #dfe3ec;
+    color-scheme: light;
+  }
+  .dark {
+    --bg: 10 10 11;
+    --surface: 17 17 19;
+    --elevated: 24 24 27;
+    --fg: 244 244 245;
+    --muted: 161 161 170;
+    --subtle: 113 113 122;
+    --success: 74 222 128;
+    --warning: 251 191 36;
+    --danger: 248 113 113;
+    --line: rgb(255 255 255 / 0.08);
+    --line-strong: rgb(255 255 255 / 0.14);
+    --stage-top: #1c1c22;
+    --stage-bottom: #121216;
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-line;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-bg font-sans text-base text-fg antialiased;
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    @apply tracking-tight text-fg;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: rgb(var(--accent) / 0.3);
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply border-b border-line bg-bg/70 backdrop-blur-xl backdrop-saturate-150;
+  }
+  .text-gradient {
+    background: linear-gradient(180deg, rgb(var(--fg)) 30%, rgb(var(--fg) / 0.55));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glow-accent {
+    background: radial-gradient(closest-side, rgb(var(--accent) / 0.22), transparent);
+  }
+  .glow-highlight {
+    background: radial-gradient(closest-side, rgb(var(--highlight) / 0.14), transparent);
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at center top, black 20%, transparent 70%);
+  }
+  .stage-bg {
+    background: linear-gradient(180deg, var(--stage-top), var(--stage-bottom));
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .range {
+    @apply h-5 w-full cursor-pointer appearance-none bg-transparent;
+  }
+  .range::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(to right, rgb(var(--accent)) var(--fill, 50%), var(--line-strong) var(--fill, 50%));
+  }
+  .range::-moz-range-track {
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(to right, rgb(var(--accent)) var(--fill, 50%), var(--line-strong) var(--fill, 50%));
+  }
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    margin-top: -6px;
+    height: 16px;
+    width: 16px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.15), 0 2px 6px rgb(0 0 0 / 0.3);
+    transition: transform 0.15s;
+  }
+  .range::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.15), 0 2px 6px rgb(0 0 0 / 0.3);
+  }
+  .range:active::-webkit-slider-thumb {
+    transform: scale(1.15);
+  }
+  .range:focus-visible {
+    outline: none;
+  }
+  .range:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 4px rgb(var(--accent) / 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

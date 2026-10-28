@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="FitCheck AI — virtual try-on for fashion brands. Fewer returns, higher conversion." />
+    <meta name="theme-color" content="#0A0A0B" />
+    <title>FitCheck AI — Virtual try-on for fashion brands</title>
+    <script>
+      // Apply theme + accent before paint to avoid a flash.
+      (function () {
+        try {
+          var t = localStorage.getItem("fitcheck:theme");
+          if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+          document.documentElement.classList.add(t);
+          var a = localStorage.getItem("fitcheck:accent");
+          if (a && /^#[0-9a-f]{6}$/i.test(a)) {
+            var n = parseInt(a.slice(1), 16);
+            document.documentElement.style.setProperty("--accent", (n >> 16) + " " + ((n >> 8) & 255) + " " + (n & 255));
+          }
+        } catch (e) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
